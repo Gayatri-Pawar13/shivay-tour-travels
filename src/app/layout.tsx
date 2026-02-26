@@ -22,6 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       "Book reliable cabs in Indore for airport transfers, outstation one-way or round trips, and local rides with verified drivers and transparent fares.",
     metadataBase: baseUrl,
+
+    // ✅ GOOGLE VERIFICATION ADDED HERE
+    verification: {
+      google: "N8QDNLtDGjpni5BXP-YmoaJ2Zy7WLhNUt4dUY8rOAx4",
+    },
+
     openGraph: {
       title: "Shivay Tour and Travels",
       description:
