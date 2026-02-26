@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-label="Scanner placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#fff4cf"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="640" height="640" rx="32" fill="url(#bg)"/>
+  <rect x="64" y="64" width="512" height="512" rx="24" fill="#ffffff" stroke="#111827" stroke-opacity="0.12" stroke-width="6"/>
+  <g fill="none" stroke="#111827" stroke-opacity="0.25" stroke-width="10" stroke-linecap="round">
+    <path d="M120 200v-40a40 40 0 0 1 40-40h40"/>
+    <path d="M520 200v-40a40 40 0 0 0-40-40h-40"/>
+    <path d="M120 440v40a40 40 0 0 0 40 40h40"/>
+    <path d="M520 440v40a40 40 0 0 1-40 40h-40"/>
+  </g>
+  <g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" text-anchor="middle">
+    <text x="320" y="315" font-size="28" fill="#111827" fill-opacity="0.85" font-weight="700">Add your scanner image</text>
+    <text x="320" y="355" font-size="18" fill="#111827" fill-opacity="0.6">Place <tspan font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">public/images/scanner.png</tspan></text>
+  </g>
+</svg>
+
