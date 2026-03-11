@@ -10,8 +10,8 @@ export function ServicesSection() {
     <section id="services" className="space-y-6">
       <div className="space-y-2 text-center">
         <p className="text-sm font-semibold uppercase tracking-wide text-amber-600">Services</p>
-        <h2 className="text-3xl font-semibold text-foreground">Choose your cab service</h2>
-        <p className="text-muted-foreground">Local, airport, corporate, and outstation travel with quick confirmation.</p>
+        <h2 className="text-3xl font-semibold text-foreground">Best Taxi & Tempo Traveller Service in Indore</h2>
+        <p className="text-muted-foreground">Shivay Travels Indore offers taxi service, tempo traveller on rent, and Force Urbania rental for local sightseeing, airport transfer, and outstation trips from Indore.</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cabServices.map((service) => (
