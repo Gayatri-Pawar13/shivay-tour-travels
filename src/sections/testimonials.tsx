@@ -24,7 +24,7 @@ export async function TestimonialsSection() {
 
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="grid gap-4 sm:grid-cols-2">
-          {reviews.slice(0, 6).map((item: any) => (
+         {reviews.map((item: any) => (
             <Card key={item.id} className="h-full">
               <CardHeader className="gap-2">
                 <div className="flex items-start justify-between gap-3">
