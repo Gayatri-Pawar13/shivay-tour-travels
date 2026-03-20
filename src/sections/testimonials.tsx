@@ -1,13 +1,19 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { metrics } from "@/content/testimonials";
-import { getReviews } from "@/lib/reviews-store";
 import { StarRating } from "@/components/star-rating";
 import { ReviewForm } from "@/components/review-form";
 
 export const dynamic = "force-dynamic";
 
 export async function TestimonialsSection() {
-  const reviews = await getReviews();
+  // 🔥 API से fetch करेंगे
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/reviews`, {
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+  const reviews = data?.reviews || [];
+
   return (
     <section id="reviews" className="space-y-6">
       <div className="space-y-2">
@@ -15,9 +21,10 @@ export async function TestimonialsSection() {
         <h2 className="text-3xl font-semibold text-foreground">Riders count on us daily</h2>
         <p className="text-muted-foreground">Ratings and feedback from recent trips.</p>
       </div>
+
       <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="grid gap-4 sm:grid-cols-2">
-          {reviews.slice(0, 6).map((item) => (
+          {reviews.slice(0, 6).map((item: any) => (
             <Card key={item.id} className="h-full">
               <CardHeader className="gap-2">
                 <div className="flex items-start justify-between gap-3">
@@ -28,10 +35,13 @@ export async function TestimonialsSection() {
                   <StarRating value={item.rating} />
                 </div>
               </CardHeader>
-              <CardContent className="text-sm text-foreground/90">{item.comment}</CardContent>
+              <CardContent className="text-sm text-foreground/90">
+                {item.comment}
+              </CardContent>
             </Card>
           ))}
         </div>
+
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-4 rounded-2xl border bg-white/70 p-4 shadow-inner">
             {metrics.map((m) => (
@@ -59,4 +69,3 @@ export async function TestimonialsSection() {
     </section>
   );
 }
-
