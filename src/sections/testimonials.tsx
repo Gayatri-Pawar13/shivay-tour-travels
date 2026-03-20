@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 
 export async function TestimonialsSection() {
   // 🔥 API से fetch करेंगे
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/reviews`, {
-    cache: "no-store",
-  });
+  const res = await fetch("https://shivaytravelsindore.com/api/reviews", {
+  cache: "no-store",
+});
 
   const data = await res.json();
   const reviews = data?.reviews || [];
