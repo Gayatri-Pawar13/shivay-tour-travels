@@ -1,7 +1,8 @@
 import "server-only";
 
 import { randomUUID } from "crypto";
-import { readFile, writeFile } from "fs/promises";
+import { access, readFile, writeFile } from "fs/promises";
+import os from "os";
 import path from "path";
 import * as z from "zod";
 
@@ -28,18 +29,34 @@ const reviewsFileSchema = z.object({
 export type Review = z.infer<typeof reviewSchema>;
 export type ReviewCreate = z.infer<typeof reviewCreateSchema>;
 
-function getReviewsFilePath() {
+function getPackagedReviewsFilePath() {
   return path.join(process.cwd(), "data", "reviews.json");
 }
 
+function getRuntimeReviewsFilePath() {
+  return path.join(os.tmpdir(), "reviews.json");
+}
+
+async function fileExists(filePath: string) {
+  try {
+    await access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function readDb() {
-  const filePath = getReviewsFilePath();
+  const runtimeFilePath = getRuntimeReviewsFilePath();
+  const filePath = (await fileExists(runtimeFilePath))
+    ? runtimeFilePath
+    : getPackagedReviewsFilePath();
   const raw = await readFile(filePath, "utf8");
   return reviewsFileSchema.parse(JSON.parse(raw));
 }
 
 async function writeDb(db: z.infer<typeof reviewsFileSchema>) {
-  const filePath = getReviewsFilePath();
+  const filePath = getRuntimeReviewsFilePath();
   await writeFile(filePath, JSON.stringify(db, null, 2) + "\n", "utf8");
 }
 
