@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import * as z from "zod";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { getReviews, addReview } from "@/lib/reviews-store";
 
 export const runtime = "nodejs";
 
@@ -14,14 +13,13 @@ const createSchema = z.object({
 
 // GET → fetch reviews
 export async function GET() {
-  const snapshot = await getDocs(collection(db, "reviews"));
-
-  const reviews = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-
-  return NextResponse.json({ ok: true, reviews });
+  try {
+    const reviews = await getReviews();
+    return NextResponse.json({ ok: true, reviews });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to fetch reviews";
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
+  }
 }
 
 // POST → add review
@@ -44,14 +42,11 @@ export async function POST(req: Request) {
   }
 
   try {
-    const docRef = await addDoc(collection(db, "reviews"), {
-      ...parsed.data,
-      createdAt: new Date(),
-    });
+    const review = await addReview(parsed.data);
 
     return NextResponse.json({
       ok: true,
-      review: { id: docRef.id, ...parsed.data },
+      review,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Failed to save review";

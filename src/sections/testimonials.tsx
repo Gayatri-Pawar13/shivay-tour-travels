@@ -2,16 +2,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { metrics } from "@/content/testimonials";
 import { StarRating } from "@/components/star-rating";
 import { ReviewForm } from "@/components/review-form";
+import { getBaseUrl } from "@/lib/site-url";
 
 export const dynamic = "force-dynamic";
 
 export async function TestimonialsSection() {
-  // 🔥 API से fetch करेंगे
-  const res = await fetch("https://shivaytravelsindore.com/api/reviews", {
-  cache: "no-store",
-});
+  const baseUrl = await getBaseUrl();
 
-  const data = await res.json();
+  const res = await fetch(`${baseUrl}/api/reviews`, {
+    cache: "no-store",
+  });
+
+  const data = res.ok ? await res.json() : null;
   const reviews = data?.reviews || [];
 
   return (
